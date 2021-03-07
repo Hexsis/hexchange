@@ -1,0 +1,11 @@
+type PingResponse {
+    result: String
+}
+
+type Query {
+    ping: PingResponse
+}
+
+schema {
+    query: Query
+}
