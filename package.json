@@ -6,10 +6,11 @@
   "scripts": {
     "copyfiles": "copyfiles -u 1 server/api/**/schema.gql server/graphql/**/schema.gql dist/",
     "postinstall": "npm run build",
-    "build": "tsc && npm run copyfiles",
+    "build": "npm run clean && tsc && npm run copyfiles",
     "start": "node ./dist/index.js",
     "devstart": "npm run copyfiles && node ./dist/index.js",
     "dev": "tsc-watch --noClear --onSuccess \"npm run devstart\"",
+    "clean": "rm -rf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
