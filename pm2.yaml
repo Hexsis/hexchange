@@ -1,5 +1,7 @@
 apps:
-  - script: ./dist/server.js
-    name: 'api-app'
+  - script: ./dist/index.js
+    name: 'hexchange-backend'
     instances: 4
     exec_mode: cluster
+    env:
+      NODE_ENV: production
