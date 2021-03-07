@@ -4,7 +4,7 @@
   "description": "A group based bill splitter for food orders, parties, apartment sharing etc.",
   "main": "server/index.ts",
   "scripts": {
-    "copyfiles": "copyfiles server/api/**/schema.gql server/graphql/**/schema.gql dist/",
+    "copyfiles": "copyfiles -u 1 server/api/**/schema.gql server/graphql/**/schema.gql dist/",
     "postinstall": "npm run build",
     "build": "tsc && npm run copyfiles",
     "start": "node ./dist/index.js",
