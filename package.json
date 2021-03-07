@@ -1,0 +1,45 @@
+{
+  "name": "hexchange",
+  "version": "0.0.1",
+  "description": "A group based bill splitter for food orders, parties, apartment sharing etc.",
+  "main": "server/index.ts",
+  "scripts": {
+    "copyfiles": "copyfiles server/api/**/schema.gql server/graphql/**/schema.gql dist/",
+    "postinstall": "npm run build",
+    "build": "tsc && npm run copyfiles",
+    "start": "node ./dist/index.js",
+    "devstart": "npm run copyfiles && node ./dist/index.js",
+    "dev": "tsc-watch --noClear --onSuccess \"npm run devstart\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hexsis/hexchange.git"
+  },
+  "keywords": [
+    "group",
+    "bill",
+    "splitter"
+  ],
+  "author": "kaziwaseef",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Hexsis/hexchange/issues"
+  },
+  "homepage": "https://github.com/Hexsis/hexchange#readme",
+  "dependencies": {
+    "apollo-server": "^2.21.0",
+    "graphql": "^15.5.0",
+    "graphql-tools": "^7.0.4",
+    "tsc-watch": "^4.2.9",
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "copyfiles": "^2.4.1"
+  },
+  "engines": {
+    "node": ">=14.16.0",
+    "npm": ">=6.14.11"
+  }
+}
