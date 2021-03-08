@@ -1,9 +1,11 @@
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { loadFilesSync } from '@graphql-tools/load-files';
 import path from 'path';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
-import { ITypeDefinitions, IResolvers } from '@graphql-tools/utils'
+import { GraphQLSchema } from 'graphql';
+import { directiveResolvers } from '../graphql/directive';
 
-const stitchSchema = (): { typeDefs: ITypeDefinitions; resolvers: IResolvers; } => {
+const stitchSchema = (): GraphQLSchema => {
     const typesArray = [
         ...loadFilesSync(path.join(__dirname, '../api/**/schema.gql')),
         ...loadFilesSync(path.join(__dirname, '../graphql/**/schema.gql'))
@@ -12,10 +14,11 @@ const stitchSchema = (): { typeDefs: ITypeDefinitions; resolvers: IResolvers; } 
         ...loadFilesSync(path.join(__dirname, '../api/**/resolver.js')),
         ...loadFilesSync(path.join(__dirname, '../graphql/**/resolver.js'))
     ];
-    return {
+    return makeExecutableSchema({
         typeDefs: mergeTypeDefs(typesArray),
-        resolvers: mergeResolvers(resolversArray)
-    };
+        resolvers: mergeResolvers(resolversArray),
+        directiveResolvers
+    });
 };
 
 export { stitchSchema };

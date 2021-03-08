@@ -1,5 +1,5 @@
 type PingResponse {
-    result: String
+    result: String @hasRole(oneOf: ["customer"])
 }
 
 type Query {
