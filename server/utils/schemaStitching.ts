@@ -7,12 +7,12 @@ import { directiveResolvers } from '../graphql/directive';
 
 const stitchSchema = (): GraphQLSchema => {
     const typesArray = [
-        ...loadFilesSync(path.join(__dirname, '../api/**/schema.gql')),
-        ...loadFilesSync(path.join(__dirname, '../graphql/**/schema.gql'))
+        ..._loadApiSchemas(),
+        ..._loadCommonSchemas()
     ];
     const resolversArray = [
-        ...loadFilesSync(path.join(__dirname, '../api/**/resolver.js')),
-        ...loadFilesSync(path.join(__dirname, '../graphql/**/resolver.js'))
+        ..._loadApiResolvers(),
+        ..._loadCommonResolvers()
     ];
     return makeExecutableSchema({
         typeDefs: mergeTypeDefs(typesArray),
@@ -20,5 +20,12 @@ const stitchSchema = (): GraphQLSchema => {
         directiveResolvers
     });
 };
+
+const _loadApiSchemas = (): any[] => _loadFiles('../api/**/schema.gql');
+const _loadCommonSchemas = (): any[] => _loadFiles('../graphql/**/schema.gql');
+const _loadApiResolvers = (): any[] => _loadFiles('../api/**/resolver.js');
+const _loadCommonResolvers = (): any[] => _loadFiles('../graphql/**/resolver.js');
+
+const _loadFiles = (glob: string) => loadFilesSync(path.join(__dirname, glob));
 
 export { stitchSchema };
