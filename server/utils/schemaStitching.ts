@@ -1,6 +1,6 @@
+import path from 'path';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { loadFilesSync } from '@graphql-tools/load-files';
-import path from 'path';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
 import { GraphQLSchema } from 'graphql';
 import { directiveResolvers } from '../graphql/directive';
