@@ -3,7 +3,7 @@ type PingResponse {
 }
 
 type Query {
-    ping: PingResponse
+    ping: PingResponse @hasRole(oneOf: ["customer"])
 }
 
 schema {

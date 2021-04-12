@@ -1,5 +1,5 @@
-import { gqlReponse } from '../../../utils/response';
+import { gqlResponse } from '../../../utils/response';
 
-const ping = () => gqlReponse('Pong');
+const ping = () => gqlResponse('Pong');
 
 export { ping };

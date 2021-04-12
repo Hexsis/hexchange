@@ -1,0 +1,1 @@
+directive @hasRole(oneOf: [String]) on QUERY | FIELD | FIELD_DEFINITION

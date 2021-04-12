@@ -1,14 +1,16 @@
 import { ApolloServer } from 'apollo-server';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { stitchSchema } from './utils/schemaStitching';
+import { stitchFederatedSchema } from './utils/schemaStitching';
 
-const { typeDefs, resolvers } = stitchSchema();
-const schema = makeExecutableSchema({
-    typeDefs,
-    resolvers,
+const server = new ApolloServer({
+    schema: stitchFederatedSchema(),
+    context: async (request) => {
+        // let user = await checkJWTGraphql(request);
+        // return { user, pubsub };
+        const user = { isAuthenticated: true, role: 'customer' }
+        return { user };
+    },
 });
-const server = new ApolloServer({ schema });
 // The `listen` method launches a web server.
-server.listen().then(({ url }) => {
+server.listen({ port: 4001 }).then(({ url }) => {
     console.log(`Server ready at ${url}`);
 });
