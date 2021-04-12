@@ -1,10 +1,8 @@
 import { ApolloServer } from 'apollo-server';
-import { stitchSchema } from './utils/schemaStitching';
-
-const schema = stitchSchema();
+import { stitchFederatedSchema } from './utils/schemaStitching';
 
 const server = new ApolloServer({
-    schema,
+    schema: stitchFederatedSchema(),
     context: async (request) => {
         // let user = await checkJWTGraphql(request);
         // return { user, pubsub };
@@ -13,6 +11,6 @@ const server = new ApolloServer({
     },
 });
 // The `listen` method launches a web server.
-server.listen().then(({ url }) => {
+server.listen({ port: 4001 }).then(({ url }) => {
     console.log(`Server ready at ${url}`);
 });

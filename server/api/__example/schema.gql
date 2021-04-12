@@ -1,9 +1,9 @@
 type PingResponse {
-    result: String @hasRole(oneOf: ["customer"])
+    result: String
 }
 
 type Query {
-    ping: PingResponse
+    ping: PingResponse @hasRole(oneOf: ["customer"])
 }
 
 schema {

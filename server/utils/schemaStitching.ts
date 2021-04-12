@@ -1,11 +1,12 @@
 import path from 'path';
-import { makeExecutableSchema } from '@graphql-tools/schema';
+import { buildFederatedSchema } from '@apollo/federation';
+import { SchemaDirectiveVisitor } from 'apollo-server';
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
 import { GraphQLSchema } from 'graphql';
 import { directiveResolvers } from '../graphql/directive';
 
-const stitchSchema = (): GraphQLSchema => {
+const stitchFederatedSchema = (): GraphQLSchema => {
     const typesArray = [
         ..._loadApiSchemas(),
         ..._loadCommonSchemas()
@@ -14,11 +15,14 @@ const stitchSchema = (): GraphQLSchema => {
         ..._loadApiResolvers(),
         ..._loadCommonResolvers()
     ];
-    return makeExecutableSchema({
+    const schema = buildFederatedSchema({
         typeDefs: mergeTypeDefs(typesArray),
-        resolvers: mergeResolvers(resolversArray),
-        directiveResolvers
+        resolvers: mergeResolvers(resolversArray)
     });
+
+    SchemaDirectiveVisitor.visitSchemaDirectives(schema, directiveResolvers);
+
+    return schema;
 };
 
 const _loadApiSchemas = (): any[] => _loadFiles('../api/**/schema.gql');
@@ -28,4 +32,4 @@ const _loadCommonResolvers = (): any[] => _loadFiles('../graphql/**/resolver.js'
 
 const _loadFiles = (glob: string) => loadFilesSync(path.join(__dirname, glob));
 
-export { stitchSchema };
+export { stitchFederatedSchema };
