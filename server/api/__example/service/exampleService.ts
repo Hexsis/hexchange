@@ -1,10 +1,10 @@
-import { PingResponse, ResolverFn } from '../../../graphql/types';
+import { PingResponse, Resolver } from '../../../graphql/types';
 
-const ping: ResolverFn = async (
-    parent: TParent,
-    args: TArgs,
-    context: TContext,
-    info: GraphQLResolveInfo
+const ping: Resolver<PingResponse> = async (
+    _parent,
+    _args,
+    _context,
+    _info
 ): Promise<PingResponse> => ({
     result: 'pong',
     health: 'healthy'

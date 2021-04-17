@@ -1,8 +1,10 @@
-import { QueryResolvers } from '../../graphql/types';
+import { Resolvers } from '../../graphql/types';
 import { ping } from './service/exampleService';
 
-const Query: QueryResolvers = {
-    ping
-}
+const resolvers: Resolvers = {
+    Query: {
+        ping
+    }
+};
 
-export default { Query };
+export default resolvers;

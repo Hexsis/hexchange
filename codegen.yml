@@ -7,6 +7,7 @@ generates:
       - typescript
       - typescript-resolvers
     config:
+      useIndexSignature: true
       noSchemaStitching: false
       federation: true
       wrapFieldDefinitions: true
