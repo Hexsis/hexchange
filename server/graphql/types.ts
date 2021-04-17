@@ -20,6 +20,11 @@ export type Scalars = {
 
 
 
+export enum CacheControlScope {
+  Public = 'PUBLIC',
+  Private = 'PRIVATE'
+}
+
 export type PingResponse = {
   __typename?: 'PingResponse';
   result?: Maybe<FieldWrapper<Scalars['String']>>;
@@ -31,13 +36,9 @@ export type Query = {
   ping?: Maybe<FieldWrapper<PingResponse>>;
 };
 
-export enum CacheControlScope {
-  Public = 'PUBLIC',
-  Private = 'PRIVATE'
-}
 
-
-
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -114,47 +115,47 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
+export type ResolversTypes = ResolversObject<{
+  CacheControlScope: CacheControlScope;
   PingResponse: ResolverTypeWrapper<PingResponse>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
-  CacheControlScope: CacheControlScope;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-};
+}>;
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
+export type ResolversParentTypes = ResolversObject<{
   PingResponse: PingResponse;
   String: Scalars['String'];
   Query: {};
   Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
-};
-
-export type PingResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PingResponse'] = ResolversParentTypes['PingResponse']> = {
-  result?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  health?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  ping?: Resolver<Maybe<ResolversTypes['PingResponse']>, ParentType, ContextType>;
-};
-
-export type HasRoleDirectiveArgs = {   oneOf?: Maybe<Array<Maybe<Scalars['String']>>>; };
-
-export type HasRoleDirectiveResolver<Result, Parent, ContextType = any, Args = HasRoleDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+}>;
 
 export type CacheControlDirectiveArgs = {   maxAge?: Maybe<Scalars['Int']>;
   scope?: Maybe<CacheControlScope>; };
 
 export type CacheControlDirectiveResolver<Result, Parent, ContextType = any, Args = CacheControlDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type Resolvers<ContextType = any> = {
+export type HasRoleDirectiveArgs = {   oneOf?: Maybe<Array<Maybe<Scalars['String']>>>; };
+
+export type HasRoleDirectiveResolver<Result, Parent, ContextType = any, Args = HasRoleDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type PingResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PingResponse'] = ResolversParentTypes['PingResponse']> = ResolversObject<{
+  result?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  health?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  ping?: Resolver<Maybe<ResolversTypes['PingResponse']>, ParentType, ContextType>;
+}>;
+
+export type Resolvers<ContextType = any> = ResolversObject<{
   PingResponse?: PingResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-};
+}>;
 
 
 /**
@@ -162,10 +163,10 @@ export type Resolvers<ContextType = any> = {
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
-export type DirectiveResolvers<ContextType = any> = {
-  hasRole?: HasRoleDirectiveResolver<any, any, ContextType>;
+export type DirectiveResolvers<ContextType = any> = ResolversObject<{
   cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>;
-};
+  hasRole?: HasRoleDirectiveResolver<any, any, ContextType>;
+}>;
 
 
 /**
