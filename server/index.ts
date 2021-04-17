@@ -1,13 +1,15 @@
 import { ApolloServer } from 'apollo-server';
-import getContext from './utils/getContext';
+import context from './utils/getContext';
 import { stitchFederatedSchema } from './utils/schemaStitching';
+import { cacheControlConfig } from './config/apolloServer';
 
 const server = new ApolloServer({
     schema: stitchFederatedSchema(),
-    context: getContext
+    context,
+    cacheControl: cacheControlConfig,
 });
 
-// The `listen` method launches a web server.
-server.listen({ port: 4001 }).then(({ url }) => {
-    console.log(`Server ready at ${url}`);
-});
+(async () => {
+    const { url } = await server.listen({ port: 4001 });
+    console.log(`\nServer running at ${url}\n`);
+})();

@@ -1,0 +1,12 @@
+schema:
+  - 'server/api/**/schema.gql'
+  - 'server/graphql/**/schema.gql'
+generates:
+  ./server/graphql/types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      noSchemaStitching: false
+      federation: true
+      wrapFieldDefinitions: true

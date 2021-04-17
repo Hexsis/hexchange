@@ -1,5 +1,6 @@
 type PingResponse {
-    result: String
+    result: String @cacheControl(maxAge: 10)
+    health: String @cacheControl(maxAge: 30)
 }
 
 type Query {
