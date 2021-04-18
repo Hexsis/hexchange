@@ -7,6 +7,9 @@ const server = new ApolloServer({
     schema: stitchFederatedSchema(),
     context,
     cacheControl: cacheControlConfig,
+    uploads: false,
+    cors: false,
+    debug: false,
 });
 
 (async () => {
