@@ -1,4 +1,2 @@
-# hexchange
-A group based bill splitter for food orders, parties, apartment sharing etc.
-
---- Need to Make a nice Readme
+# micros-service-boilerplate
+The Microservice Boilerplate for Micros. This will have a federated subgraph.
