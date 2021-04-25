@@ -1,10 +1,10 @@
 type PingResponse {
-    result: String @cacheControl(maxAge: 30)
-    health: String @cacheControl(maxAge: 30)
+    result: String @cache(maxAge: 30, policy: PRIVATE)
+    health: String @cache(maxAge: 30)
 }
 
 type Query {
-    ping: PingResponse @hasRole(oneOf: ["customer"])
+    ping: PingResponse @hasRole(anyOf: ["customer"])
 }
 
 schema {

@@ -1,13 +1,20 @@
 directive @hasRole(
-    oneOf: [String]
+    anyOf: [String]
+    allOf: [String]
 ) on QUERY | FIELD | FIELD_DEFINITION
 
-directive @cacheControl(
-  maxAge: Int,
+directive @cache(
+  maxAge: Int
   scope: CacheControlScope
+  policy: CacheControlPolicy
 ) on OBJECT | FIELD_DEFINITION
 
-enum CacheControlScope {
+enum CacheControlPolicy {
   PUBLIC
   PRIVATE
+}
+
+enum CacheControlScope {
+  STATIC
+  DYNAMIC
 }

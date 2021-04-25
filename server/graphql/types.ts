@@ -20,8 +20,9 @@ export type Scalars = {
 
 
 
-export enum CacheControlScope {
+export enum CacheControlPolicy {
   Public = 'PUBLIC',
+  Test = 'TEST',
   Private = 'PRIVATE'
 }
 
@@ -116,7 +117,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  CacheControlScope: CacheControlScope;
+  CacheControlPolicy: CacheControlPolicy;
   PingResponse: ResolverTypeWrapper<PingResponse>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
@@ -133,12 +134,13 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
 }>;
 
-export type CacheControlDirectiveArgs = {   maxAge?: Maybe<Scalars['Int']>;
-  scope?: Maybe<CacheControlScope>; };
+export type CacheDirectiveArgs = {   maxAge?: Maybe<Scalars['Int']>;
+  policy?: Maybe<CacheControlPolicy>; };
 
-export type CacheControlDirectiveResolver<Result, Parent, ContextType = any, Args = CacheControlDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type CacheDirectiveResolver<Result, Parent, ContextType = any, Args = CacheDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type HasRoleDirectiveArgs = {   oneOf?: Maybe<Array<Maybe<Scalars['String']>>>; };
+export type HasRoleDirectiveArgs = {   anyOf?: Maybe<Array<Maybe<Scalars['String']>>>;
+  allOf?: Maybe<Array<Maybe<Scalars['String']>>>; };
 
 export type HasRoleDirectiveResolver<Result, Parent, ContextType = any, Args = HasRoleDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
@@ -164,7 +166,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = any> = ResolversObject<{
-  cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>;
+  cache?: CacheDirectiveResolver<any, any, ContextType>;
   hasRole?: HasRoleDirectiveResolver<any, any, ContextType>;
 }>;
 
