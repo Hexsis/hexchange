@@ -105,3 +105,6 @@ dist
 
 # VS Code project specific settings
 .vscode
+
+# We ignore types.ts to reduce merge conflicts
+server/graphql/types.ts
