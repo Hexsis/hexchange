@@ -1,13 +1,18 @@
-import { PingResponse, Resolver } from '../../../graphql/types';
+import { User, Resolver } from '../../../graphql/types';
 
-const ping: Resolver<PingResponse> = async (
+const user: Resolver<User> = async (
     _parent,
     _args,
     _context,
     _info
-): Promise<PingResponse> => ({
-    result: 'pong',
-    health: 'healthy'
+): Promise<User> => ({
+    id: '1',
+    username: 'kaziwaseef',
+    name: {
+        first: 'Kazi',
+        middle: 'Jerico',
+        last: 'Waseef'
+    }
 });
 
-export { ping };
+export { user };

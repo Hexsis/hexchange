@@ -1,10 +1,17 @@
-type PingResponse {
-    result: String @cache(maxAge: 30, policy: PRIVATE)
-    health: String @cache(maxAge: 30)
+type Name {
+    first: String!
+    middle: String
+    last: String
+}
+
+type User @key(fields: "id") {
+    id: ID!
+    username: String!
+    name: Name!
 }
 
 type Query {
-    ping: PingResponse @hasRole(anyOf: ["customer"])
+    user: User
 }
 
 schema {

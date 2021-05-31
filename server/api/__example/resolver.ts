@@ -1,9 +1,9 @@
 import { Resolvers } from '../../graphql/types';
-import { ping } from './service/exampleService';
+import { user } from './service/exampleService';
 
 const resolvers: Resolvers = {
     Query: {
-        ping
+        user
     }
 };
 

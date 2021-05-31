@@ -13,6 +13,6 @@ const server = new ApolloServer({
 });
 
 (async () => {
-    const { url } = await server.listen({ port: 4001 });
+    const { url } = await server.listen({ port: 4002 });
     console.log(`\nServer running at ${url}\n`);
 })();
