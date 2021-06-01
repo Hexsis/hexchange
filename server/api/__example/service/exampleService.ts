@@ -7,7 +7,11 @@ const ping: Resolver<PingResponse> = async (
     _info
 ): Promise<PingResponse> => ({
     result: 'pong',
-    health: 'healthy'
+    health: 'healthy',
+    user: {
+        id: '1',
+        greeting: 'Hello World'
+    }
 });
 
 export { ping };

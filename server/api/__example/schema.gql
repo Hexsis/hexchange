@@ -1,7 +1,7 @@
 type PingResponse {
     result: String @cache(maxAge: 30, policy: PRIVATE)
     health: String @cache(maxAge: 30)
-    user: User @provides(fields: "username")
+    user: User
 }
 
 extend type User @key(fields: "id") {
