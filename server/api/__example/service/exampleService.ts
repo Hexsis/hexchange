@@ -5,7 +5,9 @@ const user: Resolver<User> = async (
     _args,
     _context,
     _info
-): Promise<User> => ({
+): Promise<User> => fetchUserById('1');
+
+const fetchUserById = async (id: String): Promise<User> => ({
     id: '1',
     username: 'kaziwaseef',
     name: {
@@ -13,6 +15,6 @@ const user: Resolver<User> = async (
         middle: 'Jerico',
         last: 'Waseef'
     }
-});
+})
 
-export { user };
+export { user, fetchUserById };
